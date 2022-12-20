@@ -3,7 +3,14 @@ let pesanan_models = require("../models/pesanan_model");
 const { requestResponse } = require("../utils");
 
 const inputDriver = async (data) => {
-  console.log(data);
+  // console.log(data);
+  const cekData = await driver_models.findOne({ no_plat: data.no_plat }, { _id: false }, { lean: true });
+
+  if (cekData !== undefined && cekData !== null) {
+    response = { ...requestResponse.unprocessable_entity };
+    response.message = "Maaf no plat ini sudah tedaftar.";
+    return response;
+  }
   await driver_models.create(data);
 
   return { ...requestResponse.success, data: driver_models };
