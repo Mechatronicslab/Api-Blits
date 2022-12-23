@@ -47,10 +47,7 @@ const getByGuidDriver = async (req, res) => {
 const updateDriver = async (req, res) => {
   try {
     req.body.updated_at = new Date();
-    const data = await driver_service.updateDriver(
-      { guid: req.params.guid },
-      req.body
-    );
+    const data = await driver_service.updateDriver({ guid: req.params.guid }, req.body);
 
     response = { ...requestResponse.success, data };
   } catch (error) {

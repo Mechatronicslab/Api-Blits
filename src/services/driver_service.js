@@ -35,8 +35,8 @@ const updateDriver = async (condition, body) => {
   // return model.findOne(condition, { _id: false }, { lean: true });
 };
 
-const getCount = async (condition) => {
-  return pesanan_models.find(condition).count();
+const getCount = async () => {
+  return driver_models.find({}, { _id: false }, { lean: true }).count();
 };
 
 module.exports = {
