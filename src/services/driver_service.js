@@ -25,8 +25,6 @@ const getByGuidDriver = async (condition) => {
 };
 
 const updateDriver = async (condition, body) => {
-  // console.log(body);
-  console.log(body);
   if (body.id_pesanan !== null) {
     await pesanan_models.updateOne(body);
     // console.log("ada");

@@ -11,7 +11,7 @@ const pesananSchema = new mongoose.Schema(
     },
     guid_driver: {
       type: String,
-      default: "-",
+      default: null,
     },
     kode_pesanan: {
       type: String,

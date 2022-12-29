@@ -1,4 +1,5 @@
 let pesanan_models = require("../models/pesanan_model");
+const driver_models = require("../models/driver_model");
 const { requestResponse } = require("../utils");
 
 const inputPesanan = async (data) => {
@@ -20,7 +21,7 @@ const getPesanan = async () => {
       },
     },
     {
-      $unwind: "$data_user",
+      $unwind: { path: "$data_user", preserveNullAndEmptyArrays: true },
     },
     {
       $lookup: {
@@ -31,7 +32,7 @@ const getPesanan = async () => {
       },
     },
     {
-      $unwind: "$data_driver",
+      $unwind: { path: "$data_driver", preserveNullAndEmptyArrays: true },
     },
     // {
     //   $unwind: { path: "$data_user", preserveNullAndEmptyArrays: true },
@@ -78,8 +79,9 @@ const getStatusPesanan = async (condition) => {
 };
 
 const updatePesanan = async (condition, body) => {
-  return pesanan_models.updateOne(condition, body);
-  // return model.findOne(condition, { _id: false }, { lean: true });
+  await driver_models.updateOne({ guid: body.guid_driver }, { status_driver: body.status_driver });
+  await pesanan_models.updateOne(condition, { ...body });
+  return { ...requestResponse.success };
 };
 
 module.exports = {

@@ -60,9 +60,14 @@ const getStatusPesanan = async (req, res) => {
 const updatePesanan = async (req, res) => {
   try {
     req.body.updated_at = new Date();
+    const { status_pesanan, status_driver, guid_driver } = req.body;
     const data = await pesanan_service.updatePesanan(
-      { guid: req.params.guid },
-      req.body
+      { guid: req.params.guidpesanan },
+      {
+        status_pesanan: status_pesanan,
+        status_driver: status_driver,
+        guid_driver: guid_driver,
+      }
     );
     response = { ...requestResponse.success, data };
   } catch (error) {
