@@ -1,17 +1,14 @@
 require("dotenv").config();
 const fs = require(`fs`);
 
-const mongoUrl =
-  process.env.NODE_ENV === "production"
-    ? process.env.MONGO_PROD
-    : process.env.MONGO_DEV;
+const mongoUrl = process.env.NODE_ENV === "production" ? process.env.MONGO_PROD : process.env.MONGO_DEV;
 
 const mongoOptions = {
   keepAlive: true,
   // poolSize: 10,
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  autoIndex: false
+  autoIndex: false,
 };
 
 const allowedOrigins = [/.*.pptik.id/];
@@ -33,23 +30,20 @@ const cors = (req, res, next) => {
   if (allowedOrigins.some((origin) => requestHost.match(origin))) {
     res.header("Access-Control-Allow-Origin", req.get("origin"));
   }
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
   next();
 };
 
-const credentials = {
-  pfx: fs.readFileSync(process.env.PFX_FILE),
-  passphrase: process.env.PFX_PASSPHRASE,
-  ca: fs.readFileSync(process.env.INTERCERT_FILE),
-};
+// const credentials = {
+//   pfx: fs.readFileSync(process.env.PFX_FILE),
+//   passphrase: process.env.PFX_PASSPHRASE,
+//   ca: fs.readFileSync(process.env.INTERCERT_FILE),
+// };
 
 module.exports = {
   mongoUrl,
   mongoOptions,
   cors,
-  credentials
+  // credentials
 };

@@ -11,6 +11,7 @@ const pesananSchema = new mongoose.Schema(
     },
     guid_driver: {
       type: String,
+      default: "-",
     },
     kode_pesanan: {
       type: String,
@@ -35,6 +36,7 @@ const pesananSchema = new mongoose.Schema(
     },
     tanggal: {
       type: Date,
+      dafault: new Date(),
     },
     status_pesanan: {
       type: Number,
